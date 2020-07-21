@@ -1,0 +1,7 @@
+flask
+flask-mysqldb
+flask-SQLAlchemy
+flask-migrate
+flask-cors
+python-dotenv
+pycodestyle
