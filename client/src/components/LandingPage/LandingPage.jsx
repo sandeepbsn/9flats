@@ -10,6 +10,7 @@ function LandingPage() {
         <div>
       <Navigation />
       <JumbotronCon />
+      <Login />
       <Footer />
 
     </div >
