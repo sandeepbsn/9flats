@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Switch, Route} from 'react-router-dom'
 import LogIn from '../Login/Login'
 import SignUp from '../Registration/Registration'
+import LandingPage from '../LandingPage/LandingPage'
 export class Routing extends Component {
     render() {
         return (
