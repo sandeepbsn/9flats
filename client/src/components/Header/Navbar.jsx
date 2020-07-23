@@ -15,7 +15,7 @@ function Navigation() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link href="/signin" bsPrefix="text-teal">Log in</Nav.Link>
+                        <Nav.Link href="/login" bsPrefix="text-teal">Log in</Nav.Link>
                         <Navbar.Text bsPrefix="or">or</Navbar.Text>
                         <Nav.Link href="/signup" bsPrefix="text-teal">Sign up</Nav.Link>
                         <div className="placelistbtn">List a place</div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Switch, Route} from 'react-router-dom'
-import LogIn from '../Login/Login'
+import Login from '../Login/Login'
 import SignUp from '../Registration/Registration'
 import LandingPage from '../LandingPage/LandingPage'
 export class Routing extends Component {
@@ -9,7 +9,7 @@ export class Routing extends Component {
            <>
             <Switch>
                 {/* <Route exact path="/" component={LandingPage}/> */}
-                <Route path="/signin" component={LogIn}/>
+                <Route path="/login" component={Login}/>
                 <Route path="/signup" component={SignUp}/>
             </Switch>
            </>

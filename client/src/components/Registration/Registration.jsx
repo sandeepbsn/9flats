@@ -1,30 +1,49 @@
 import React, { Component } from "react"
+import { connect } from 'react-redux'
 import { Form, Button, Col } from "react-bootstrap"
 import styles from './Registration.module.css'
 import { Link } from 'react-router-dom'
 import { FacebookLoginButton } from "react-social-login-buttons";
-import { GoogleLoginButton } from "react-social-login-buttons";
+// import { GoogleLoginButton } from "react-social-login-buttons";
+import GoogleLogin from 'react-google-login'
 import { AmazonLoginButton } from "react-social-login-buttons"
+import { register } from '../../redux/actions/registerActions'
+import { responseGoogle } from '../../redux/actions/loginActions'
 
-export default class SignUp extends Component {
-    constructor() {
-        super()
+class SignUp extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
+            firstname:"",
+            lastname:"",
             email: "",
-            password: "",
-            firstname: "",
-            lastname: ""
+            password: ""
         }
     }
     handleSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state)
+        if(this.state.firstname && this.state.lastname && this.state.email && this.state.password){
+            var user = {
+                name: this.state.firstname + " " + this.state.lastname,
+                email: this.state.email,
+                password: this.state.password
+            }
+            
+            this.props.register(user)    
+            console.log(user)
+        }
     }
     handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
+        this.setState({ 
+            [e.target.name]:e.target.value
         })
+
     }
+    passwordsMustMatch = (value, allValues) => {return (
+        value !== allValues.password ?
+            'Passwords do not match' :
+            undefined
+    )}
     render() {
         return (
             <div>
@@ -39,28 +58,28 @@ export default class SignUp extends Component {
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridFname">
                                                     <Form.Label>First Name</Form.Label>
-                                                    <Form.Control placeholder="First name" autoFocus="true" name="firstname" onChange={this.handleChange}/>
+                                                    <Form.Control placeholder="First name" autoFocus={true} name="firstname" onChange={this.handleChange} />
                                                 </Form.Group>
                                                 <Form.Group as={Col} controlId="formGridLname">
                                                     <Form.Label>Last Name</Form.Label>
-                                                    <Form.Control placeholder="Last name" name="lastname" onChange={this.handleChange}/>
+                                                    <Form.Control placeholder="Last name" name="lastname" onChange={this.handleChange} />
                                                 </Form.Group>
                                             </Form.Row>
                                             <Form.Group controlId="formGridEmail">
                                                 <Form.Label>Email</Form.Label>
-                                                <Form.Control type="email" placeholder="Enter email" name="email" onChange={this.handleChange}/>
+                                                <Form.Control type="email" placeholder="Enter email" name="email" onChange={this.handleChange} />
                                             </Form.Group>
                                             <Form.Group controlId="formGridPassword">
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control placeholder="password" name="password" onChange={this.handleChange}/>
+                                                <Form.Control placeholder="password" name="password" onChange={this.handleChange} />
                                             </Form.Group>
                                             <Form.Group controlId="formGridRePasword">
                                                 <Form.Label>Repeat Password</Form.Label>
-                                                <Form.Control placeholder="Repeat Password" name="password" onChange={this.handleChange}/>
+                                                <Form.Control placeholder="Repeat Password" name="passwordC"  validate={[this.passwordsMustMatch]} />
                                             </Form.Group>
                                             <Form.Group id="formGridCheckbox">
-                                                <Form.Check 
-                                                    type="checkbox" 
+                                                <Form.Check
+                                                    type="checkbox"
                                                     label="By clicking 'Create Account' or signing up with Facebook, Amazon or Google you accept the Terms of service and Data protection policy." />
                                             </Form.Group>
                                             <Button variant="warning" type="submit">
@@ -77,7 +96,13 @@ export default class SignUp extends Component {
                                             <AmazonLoginButton />
                                         </div>
                                         <div className="amazon mb-3">
-                                            <GoogleLoginButton />
+                                            <GoogleLogin
+                                                clientId="471977914473-cn7u1rs5sopnfdh3a3u6bt17ecpp50t3.apps.googleusercontent.com"
+                                                buttonText='Sign in with Google'
+                                                onSuccess={this.props.responseGoogle}
+                                                onFailure={this.props.responseGoogle}
+                                                cookiePolicy={'single_host_origin'}
+                                                accessType='offline' />
                                         </div>
                                     </div>
                                 </div>
@@ -99,3 +124,5 @@ export default class SignUp extends Component {
         )
     }
 }
+const mapDispatchToProps = {register, responseGoogle}
+export default connect(null, mapDispatchToProps )(SignUp)

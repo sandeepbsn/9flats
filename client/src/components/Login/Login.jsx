@@ -4,9 +4,11 @@ import styles from './Login.module.css'
 import {Link} from 'react-router-dom'
 import { FacebookLoginButton } from "react-social-login-buttons";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { AmazonLoginButton } from "react-social-login-buttons"
+import { AmazonLoginButton } from "react-social-login-buttons";
+import {connect} from 'react-redux'
+import { login } from '../../redux/actions/loginActions'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super()
     this.state = {
@@ -16,7 +18,11 @@ export default class Login extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state)
+    const { email, password } = this.state;
+    const user = {email,password}
+    if (email && password) {
+        this.props.login(user);
+    }
   }
   handleChange = (e) => {
     this.setState({
@@ -36,7 +42,7 @@ export default class Login extends Component {
                     <Form onSubmit={this.handleSubmit}>
                       <Form.Group controlId="email">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" autoFocus="true" name="email" onChange={this.handleChange} />
+                        <Form.Control type="email" autoFocus={true} name="email" onChange={this.handleChange} />
                       </Form.Group>
 
                       <Form.Group controlId="password">
@@ -44,7 +50,7 @@ export default class Login extends Component {
                         <Form.Control type="password" name="password" onChange={this.handleChange} />
                       </Form.Group>
                       <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Remember me" checked />
+                        <Form.Check type="checkbox" label="Remember me"/>
                       </Form.Group>
                       <Button variant="warning" type="submit">
                         Log in</Button>
@@ -85,3 +91,5 @@ export default class Login extends Component {
     )
   }
 }
+const mapDispatchToProps = {login}
+export default connect(null, mapDispatchToProps )(Login)
