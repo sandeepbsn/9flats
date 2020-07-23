@@ -52,7 +52,7 @@ export default class LandingPage extends Component {
 
                       <input type="text" name="search[number_of_beds]" id="search_number_of_beds" value="2" placeholder="Guests" tabindex="4" className="search-bar__form__input search-bar__form__input_guests active rounded border form-control mr-sm-2" />
 
-                      <div className="guests" style="display: none;">
+                      <div className="guests d-none">
 
                         <div className="guests__adults">
                           <p className="guests__header">Adults</p>
