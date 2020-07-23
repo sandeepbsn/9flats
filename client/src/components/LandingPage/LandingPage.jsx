@@ -1,11 +1,11 @@
 import React from "react";
 
 // import { Navbar, Nav,} from "react-bootstrap";
-import Navigation from "./Navbar"
-import Footer from "./Footer"
-import Login from "../Login/Login"
+import Navigation from "../Header/Navbar"
+import Footer from "../Footer/Footer"
 import JumbotronCon from "./JumbotronCon";
 import Registration from "../Registration/Registration";
+import Login from "../Login/Login"
 
 function LandingPage() {
     return (
@@ -13,7 +13,7 @@ function LandingPage() {
       <Navigation />
       <JumbotronCon />
       <Registration />
-      <Login />
+      <Login /> 
       <Footer />
 
     </div >
