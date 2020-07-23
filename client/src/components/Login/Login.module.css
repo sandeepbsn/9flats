@@ -1,0 +1,5 @@
+.bordering{
+    border: 1px solid rgb(218, 215, 215);
+    padding:15px;
+    border-radius: 5px;
+}

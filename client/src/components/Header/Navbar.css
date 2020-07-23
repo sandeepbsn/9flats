@@ -1,0 +1,30 @@
+.placelistbtn {
+    background-color: white;
+    color: rgb(4, 177, 177);
+    border: 1px solid rgb(4, 177, 177);
+    border-radius: 4px;
+    border-width: 1px;
+    height: 31px;
+    font-size: 14px;
+    width: 89px;
+    text-align: center;
+    padding: 5px
+}
+
+.text-teal {
+    color: rgb(4, 177, 177);
+    padding: 8px 8px 8px 0px;
+    text-decoration: none;
+}
+
+.placelistbtn:hover {
+    background-color: rgb(22, 139, 160);
+    color: white;
+    box-shadow: grey;
+    box-shadow: 0 4px 8px 0 rgba(53, 53, 53, 0.1), 0 6px 20px 0 rgba(53, 53, 53, 0.15);
+}
+
+.or {
+    padding: 8px 8px 8px 0px;
+    color: grey;
+}
