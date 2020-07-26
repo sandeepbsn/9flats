@@ -2,6 +2,7 @@ import React from "react"
 // /import {Card} from "react-bootstrap/Card"
 
 import { Card, CardDeck } from 'react-bootstrap/'
+import "./TopCities.css"
 // import 'holderjs' { img: "holder.js/100px270", textHeader: "Well handled customers", link: "Our reviews on Reviews.co.uk", }
 
 
@@ -12,13 +13,14 @@ function TopCities() {
 
             <CardDeck>
                 <Card className="rounded-border">
-                    <Card.Img variant="top"
+                    <Card.Img variant="top" 
+                    // bsPrefix="topcities-card-img"
                         src="https://images.9flats.com/geo_locator_photos/photos/15-1552991527/small.jpg"
                     />
-                    <Card.Body className="">
-                        <Card.Title className="text-primary">Berlin</Card.Title>
+                    {/* <Card.Body className=""> */}
+                        <Card.Title className="text-primary botderBotttom">Berlin</Card.Title>
                         {/* <Card.Link href="#">Berlin</Card.Link> */}
-                    </Card.Body>
+                    {/* </Card.Body> */}
                     {/* <Card.Link href="#">Berlin</Card.Link> */}
                 </Card>
                 <Card>
