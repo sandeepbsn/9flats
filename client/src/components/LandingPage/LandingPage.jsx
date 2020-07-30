@@ -1,86 +1,132 @@
-import React, { Component } from "react";
-// import { Navbar, Nav,} from "react-bootstrap";
+import React, {useState, useEffect} from "react";
+import {useSelector, useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
+import styles from './LandingPage.module.css'
+import DatePicker from "react-datepicker";
+import TopCities from './TopCities'
+import PopularPlaces from './PopularPlaces'
+import {clearValidation} from '../../redux/actions/entityActions'
 
-export default class LandingPage extends Component {
-  constructor() {
-    super()
-    this.state = {}
+
+
+
+export default function LandingPage(){
+  const final_res = useSelector(state => state.entity.validation)
+  const dispatch = useDispatch()
+  const [startDate, setStartDate] = useState(new Date());
+
+  const copy = new Date(Number(startDate))
+  copy.setDate(startDate.getDate()+1)
+
+  const [endDate, setEndDate] = useState(copy);
+
+  const [params, setParams] = useState({
+    "search_query":"",
+    "guests":""
+  })
+  const loginInfo = useSelector(state => state.login.loginInfo)
+  const history = useHistory()
+
+  const handleChange = (e) => {
+    console.log(e.target.name)
+    setParams({
+      ...params,
+      [e.target.name]:e.target.value
+    })
   }
-  render() {
-    return (
-      <div>
-        <div className="bg">
-          <div className="container-fluid">
-            <div className="text-white text-center py-3 my-3 slideshow__container__text">
-              <div>
-                <h2 className="slideshow__container__text_1 h1-responsive pt-3 mb-3 font-bold">Feel like home away from home</h2>
-                <p className="mx-5 mb-5 slideshow__container__text_2 h4-responsive">The alternative to a hotel with 6 Million homes worldwide</p>
-                <div className="search-bar clearfix b-js search-bar_slideshow search_bar_js_inited" onclick="return {name: 'search_bar', url: '/geo_locators.json'}">
-                  <div className="search-bar__form__w rounded z-depth-1 p-2">
-                    <form className="form-inline search-bar__form js-datepicker-form en full-search" id="search_form" target="_top" data-html-url="/searches" data-geocoded-form="search" data-autocomplete-url="/autocomplete" action="/searches" accept-charset="UTF-8" method="get">
-                      <input name="utf8" type="hidden" value="✓" />
-                      <input type="hidden" name="mode" id="mode" value="list" />
-                      <input type="hidden" name="search[place_type]" id="search_place_type" />
-                      <input type="hidden" value="EUR" name="search[currency]" id="search_currency" />
-                      <input type="hidden" value="top_ranking" name="search[sort_by]" id="search_sort_by" />
-                      <input type="hidden" value="0" name="search[view_index]" id="search_view_index" />
-                      <input type="hidden" value="0" name="search[number_of_bathrooms]" id="search_number_of_bathrooms" />
-                      <input type="hidden" value="0" name="search[number_of_bedrooms]" id="search_number_of_bedrooms" />
-                      <input type="hidden" value="5" name="search[radius]" id="search_radius" />
-                      <input type="hidden" value="" name="search[amenities]" id="search_amenities" />
-                      <input type="hidden" name="search[woeid]" id="search_woeid" />
-                      <input type="hidden" name="search[bb_sw]" id="search_bb_sw" />
-                      <input type="hidden" name="search[bb_ne]" id="search_bb_ne" />
-                      <input type="hidden" value="0.0" name="search[lat]" id="search_lat" />
-                      <input type="hidden" value="0.0" name="search[lng]" id="search_lng" />
-                      <input type="hidden" name="search[is_country]" id="search_is_country" />
-                      <input type="hidden" value="" name="search[category]" id="search_category" />
-                      <input type="hidden" name="search[geo_search]" id="search_geo_search" />
-                      <input type="hidden" name="search[geo_region]" id="search_geo_region" />
-                      <input type="hidden" name="search[continuous_update]" id="search_continuous_update" />
 
-                      <input type="hidden" name="search[start_date_alt]" id="search_start_date_alt" />
-                      <input type="hidden" name="search[end_date_alt]" id="search_end_date_alt" />
+  useEffect(()=>{
+    if(final_res?.['status']){
+      dispatch(clearValidation())
+    }
+    let end_update = new Date(Number(startDate))
+    end_update.setDate(startDate.getDate()+1)
+    setEndDate(end_update)
+  },[startDate])
 
-
-                      <input placeholder="Where do you want to go?" autocomplete="off" tabindex="1" className="search-bar__form__input search-bar__form__input_query rounded border form-control mr-sm-2 ui-autocomplete-input" type="text" value="" name="search[query]" id="search_query" />
-
-                      <div className="b-js search-bar__form__input_date_wrapper form-group datepicker_js_inited" onclick="return {name: 'datepicker', start_alt: 'search_start_date_alt', end_alt: 'search_end_date_alt'}">
-                        <input placeholder="From" tabindex="2" className="search-bar__form__input search-bar__form__input_date search-bar__form__input_start-date datepicker_start rounded border form-control mr-sm-2 hasDatepicker" autocomplete="off" readonly="readonly" type="text" name="search[start_date]" id="search_start_date" />
-                        <input placeholder="To" tabindex="3" className="search-bar__form__input search-bar__form__input_date search-bar__form__input_end-date datepicker_end rounded border form-control mr-sm-2 hasDatepicker" autocomplete="off" readonly="readonly" type="text" name="search[end_date]" id="search_end_date" />
+  const handleSearch = (e) => {
+    e.preventDefault()
+    console.log(params, startDate, endDate)
+    let start = startDate.toLocaleDateString().split("/").reverse().join("-")
+    let end = endDate.toLocaleDateString().split("/").reverse().join("-")
+    let {search_query} = params
+    history.push(`/listing?search_query=${search_query}&start_date=${start}&end_date=${end}&page=&per_page=&category=&amenities=&price=`)
+  }
+  
+  return (
+    <>
+        <div className="container-fluid" >
+          <div className={`${styles.landingImage} row`}>
+            <div className={`${styles.over} container-fluid`} style={{height:400}}>
+              <div className="row text-center my-5" >
+                <h3 className="col-12 text-white " style ={{marginTop:50}}>
+                  <b>Feel like Home away from Home</b>
+                </h3>
+                <h5 className="col-12 text-white">
+                  <b>The alternative to hotel with 6 million homes worldwide</b>
+                </h5>
+              </div>
+              <div className="container searchPanel mb-5" >
+                <div className="row m-5  justify-content-center">
+                  <div className={`${styles.searchbg} rounded p-2`}>
+                    <form onSubmit={(e)=>handleSearch(e)} className="d-flex justify-content-center">
+                      <input
+                        placeholder="Where do you want to go?"
+                        tabIndex="1" autoComplete="off"
+                        className={`${styles.wheretogo} mr-sm-2`}
+                        type="text" value={params['search_query']}
+                        name="search_query" id="search_query"
+                        onChange={(e)=>handleChange(e)} />
+                         
+                      <div>
+                      <DatePicker
+                        className={`${styles.datecomponent} ${styles.fromDate} mx-2`}
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
+                        placeholderText="From"
+                      />
+                      <DatePicker
+                        className={`${styles.datecomponent} ${styles.toDate} mx-2`}
+                        selected={endDate}
+                        onChange={date => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={endDate}
+                        placeholderText="To"
+                      />
                       </div>
-
-                      <input type="text" name="search[number_of_beds]" id="search_number_of_beds" value="2" placeholder="Guests" tabindex="4" className="search-bar__form__input search-bar__form__input_guests active rounded border form-control mr-sm-2" />
-
-                      <div className="guests d-none">
-
-                        <div className="guests__adults">
-                          <p className="guests__header">Adults</p>
-                          <div className="guests__buttons">
-                            <a href="#" className="guests__buttons__button guests__buttons__button_minus">-</a>
-                            <input id="search_number_of_adults" type="text" name="number_of_adults" className="guests__value guests__value_adults" value="2" />
-                            <a href="#" className="guests__buttons__button guests__buttons__button_plus">+</a>
-                          </div>
-                        </div>
-                        <div className="guests__children">
-                          <p className="guests__header">Children</p>
-                          <div className="guests__buttons">
-                            <a href="#" className="guests__buttons__button guests__buttons__button_minus">-</a>
-                            <input id="search_number_of_children" type="text" name="search[number_of_children]" className="guests__value guests__value_children" value="0" />
-                            <a href="#" className="guests__buttons__button guests__buttons__button_plus">+</a>
-                          </div>
-                        </div>
-                      </div>
-                      <input type="submit" name="commit" value="Search" className="search-bar__form__submit btn" id="hometogo_execute_button" data-disable-with="Search" />
+                      <input
+                        type="text"
+                        name="guests"
+                        id="search_number_of_beds"
+                        placeholder="Guests"
+                        tabIndex="4"
+                        value={params['guests']}
+                        onChange={(e)=>handleChange(e)}
+                        className={`${styles.beds} mr-sm-2`} />
+                        <button
+                          type="submit"
+                          name="commit"
+                          className={`${styles.searchSubmit}`}
+                          id="fullSearch">Search
+                        </button>
                     </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <TopCities/>
+          <PopularPlaces/> 
         </div>
-      </div >
-    );
-  }
+      </>
+  )
 }
+
+
 

@@ -3,4 +3,7 @@ from . import AuthModel
 from . import PropertyModel
 from . import ReviewsModel
 from . import AmenitiesModel
-from . import ImageModel
+from . import RoomModel
+from . import BookingsModel
+from . import BookingSlotsModel
+from . import OtpModel

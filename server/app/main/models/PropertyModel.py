@@ -12,4 +12,7 @@ class Property(db.Model):
     created_at = db.Column(db.DateTime(timezone=True),nullable=False, server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True),nullable=False,onupdate=func.now())
     type=db.Column(db.String(50), nullable = False)
+    images = db.Column(db.JSON, nullable = True)
+    description = db.Column(db.Text, nullable = True)
+    rooms = db.Column(db.Integer, nullable = False)
     price=db.Column(db.Integer, nullable = False)

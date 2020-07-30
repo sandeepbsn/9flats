@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from .main.routes.LoginRoute import login as login_blueprint
 from .main.routes.RegisterRoute import register as register_blueprint
 from .main.routes.ListingRoute import listing as listing_blueprint
+from .main.routes.EntityRoute import entity as entity_blueprint
 
 
 def create_app(config_name):
@@ -19,5 +20,6 @@ def create_app(config_name):
     app.register_blueprint(login_blueprint, url_prefix='/login')
     app.register_blueprint(register_blueprint, url_prefix='/register')
     app.register_blueprint(listing_blueprint, url_prefix='/listing')
+    app.register_blueprint(entity_blueprint, url_prefix='/entity')
 
     return app

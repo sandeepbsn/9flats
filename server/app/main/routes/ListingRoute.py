@@ -14,3 +14,4 @@ def getListings():
     response = getAllListings(params)
 
     return response
+

@@ -1,35 +1,28 @@
-import {
-    REGISTER_USER_REQUEST,
-    REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILURE,
-  } from "../actiontypes/registerActionTypes";
-  
-  const initState = {
-    isAuth: false,
-    isLoading: true,
-    error: false
-  };
-  
-  const regReducer = (state = initState, action) => {
-    switch (action.type) {
-      case REGISTER_USER_REQUEST:
-        return {
-          isLoading: true,
-          error: false
-        };
-      case REGISTER_USER_SUCCESS:
-        return {
-          isLoading: false,
-          isAuth: true
-        };
-      case REGISTER_USER_FAILURE:
-        return {
-          isLoading: false,
-          error: true
-        };
-      default:
-        return state;
+import {REGISTER_USER, CLEAR_REGMESSAGE} from '../actiontypes/registerActionTypes'
+import { saveData, loadData, removeData } from '../localStorage'
+
+export const registerState = {
+    message:loadData("regMessage"),    
+}
+
+export default (state = registerState, {type, payload}) => {
+    switch(type) {
+        case REGISTER_USER:
+            saveData("regMessage",payload['message'])
+            return ({
+                ...state,
+                message:loadData("regMessage"),
+            })
+
+        case CLEAR_REGMESSAGE:
+            removeData("regMessage")
+            return ({
+                ...state,
+                message:null
+            })
+
+        default:
+            return state
+
     }
-  };
-  
-  export default regReducer;
+}

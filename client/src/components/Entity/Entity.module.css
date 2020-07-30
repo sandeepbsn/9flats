@@ -1,0 +1,15 @@
+.amenities{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 80px;
+}
+td{
+    height: 100px;
+}
+.datecomponent{
+    height: 40px;
+    width:100px;
+    border-radius: 1mm;
+
+}
