@@ -6,10 +6,19 @@ export const apiServices = {
     logout,
     register,
     loginGoogle,
-   
+    fetchListOfItems
 };
 
+export function authHeader() {
+    // return authorization header with jwt token
+    let user = JSON.parse(localStorage.getItem('user'));
 
+    if (user && user.token) {
+        return { 'Authorization': 'Bearer ' + user.token };
+    } else {
+        return {};
+    }
+}
 
 function login(user) {
     const requestOptions = {
@@ -27,7 +36,15 @@ function login(user) {
             return user;
         });
 }
-
+async function fetchListOfItems(query) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader(),
+        
+    };
+    return await fetch(`http://434072398e12.ngrok.io/listing/display?search_query=${query.search_query}&page=${query.page_no}&per_page=${20}&checkin=${query.start_date}&checkout=${query.end_date}&guests=${query.guests}`, requestOptions)
+    .then( handleResponse);
+}
 function loginGoogle(tokenObj) {
 //     const requestOptions = {
 //         method: 'POST',

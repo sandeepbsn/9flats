@@ -131,7 +131,8 @@ function Footer() {
           <div className="col-md-6 col-lg-3 mb-5">
             <h6 className="mb-3 font-weight-bold">Follow us</h6>
             <a title="Blog" href="http://blog.9flats.com/?lang=en">
-              <i className="icon-pencil fa-2x" aria-hidden="true"></i>
+            <i className="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
+              <i className="icon-pencil fa-2x" ></i>
             </a>
             <a title="Facebook" href="https://www.facebook.com/9flats">
               <i className="icon-facebook-official fa-2x" aria-hidden="true"></i>

@@ -3,6 +3,8 @@ import Routing from '../src/components/Routing/Routing'
 import Navigation from './components/Header/Navbar'
 import Footer from './components/Footer/Footer'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
+
 
 
 function App() {

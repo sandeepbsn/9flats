@@ -1,0 +1,9 @@
+.bgImage {
+    background-image: url('Dark_World-map-Free-PNG-transparent_Images-PNGRiver.png') ;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+.bgImage li {
+    list-style-type:none;
+}

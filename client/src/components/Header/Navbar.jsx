@@ -1,10 +1,10 @@
 import React from "react";
 import './Navbar.css'
-import { Navbar, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 function Navigation() {
     return (
-        <div>
-            <Navbar bg="white" expand="lg">
+        <div className="container-fluid" >
+            <Navbar bg="white" expand="lg" fixed="top">
                 <Navbar.Brand href="/">
                     <img
                         src="https://assets.9flats.com/assets/new_home/logo-0aee51de5d08cfd71ad01d410e9b61ad821b8768f3c9de039f6bb6e48b792be7.svg"

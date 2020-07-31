@@ -3,8 +3,9 @@ import thunk from "redux-thunk";
 import registerReducer from "../redux/reducers/registerReducer";
 import profileReducer from "../redux/reducers/profileReducer";
 import loginReducer from "../redux/reducers/loginReducer";
+import queryReducer from "../redux/reducers/queryReducer";
 
-const rootReducer = combineReducers({ registerReducer,profileReducer,loginReducer });
+const rootReducer = combineReducers({ registerReducer,loginReducer, queryReducer });
 
 let composeEnhancers = compose;
 
