@@ -1,89 +1,61 @@
 import React from 'react'
+import {Carousel} from 'react-bootstrap'
+import styles from '../Entity.module.css'
+import StarRatings from 'react-star-ratings';
 
 export default function ImageEntity({basicDetails}) {
     let images 
     if(basicDetails){
         images = Object.values(basicDetails['images'])
     }
-    return (
-        <div>
-            <div className="container">
-                <div className=" d-flex flex-row mb-3 p-4 border rounded bg-light" style={{ maxWidth: 1220, marginTop: 100 }}>
-                    <div className="col-6 col-md-4">
-                        <h3><b>{basicDetails ? basicDetails['name'] : "Loading"}</b></h3>
-                        <h5>{basicDetails ? [basicDetails['city'],basicDetails['country']].join(",") : "Loading"} </h5>
+    if(images && images.length){
+        return (
+            <div className="mb-4">
+                <div className="container">
+                    <div className=" d-flex flex-row mb-2 py-2 px-0">
+                        <div className="col-9 p-0">
+                            <h3 className="m-0"><b>{basicDetails ? basicDetails['name']+", "+[basicDetails['city'],basicDetails['country']].join(",") : "Loading"}</b></h3>
+                            <span className="m-0">
+                            <StarRatings
+                            rating={basicDetails && basicDetails['review']!== "NA" ? Number(basicDetails['review']): 0}
+                            starDimension="25px"
+                            starSpacing="10px"                            
+                            /><small><strong> - {basicDetails['review']}, {basicDetails['rooms']} rooms</strong></small>
+                            </span>
+                        </div>    
                     </div>
-                    <div className="col-md-4 d-none d-md-block">
-
-                    </div>
-
-                    <div className="col-6 col-md-4 ">
-                        <div className=" text-center rounded pt-2 text-white ml-auto" style={{ height:50, width: 90, backgroundColor:"green",fontSize: "140%" }}>
-                        {basicDetails['review']} &#9733;
-                        </div>
-                    </div>
-                </div>
-                <div className="d-flex flex-md-row mb-3 justify-content-around flex-column p-3 border rounded bg-light " style={{ maxWidth: 1120 }}>
-                    <div className="col-md-8 col-12" style={{ height: 450 }}>
-                        <img
-                            className="img-fluid"
-                            style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                            src={images ? images[0] : "https://via.placeholder.com/150"}
-                            alt="hotels"
-                        />
-                    </div>
-                    <div className="col-md-2 col-12 d-flex flex-row flex-md-column justify-content-around p-1 m-0" style={{ height: 450 }} >
-                        <div className="pb-lg-2 pb-md-2 " style={{ height: 150 }}>
-                            <img
-                                className="img-fluid"
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src={images ? images[1] : "https://via.placeholder.com/150"}
-                                alt="hotels"
-                            />
-                        </div>
-                        <div className="pb-lg-2 pb-md-2 " style={{ height: 150 }}>
-                            <img
-                                className="img-fluid"
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src={images ? images[2] : "https://via.placeholder.com/150"}
-                                alt="hotels"
-                            />
-                        </div>
-                        <div style={{ height: 150 }}>
-                            <img
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src={images ? images[3] : "https://via.placeholder.com/150"}
-                                alt="hotels"
-                            />
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-2 d-flex flex-row flex-md-column justify-content-around p-1 m-0" style={{ height: 450 }} >
-                        <div className="pb-lg-2 pb-md-2 " style={{ height: 150 }}>
-                            <img
-                                className="img-fluid"
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src="https://a0.muscache.com/im/pictures/5d9cf3ef-0348-4aee-8d25-ad32acaaed8a.jpg?aki_policy=large"
-                                alt="hotels"
-                            />
-                        </div>
-                        <div className="pb-lg-2 pb-md-2 " style={{ height: 150 }}>
-                            <img
-                                className="img-fluid"
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src="https://a0.muscache.com/im/pictures/5d9cf3ef-0348-4aee-8d25-ad32acaaed8a.jpg?aki_policy=large"
-                                alt=""
-                            />
-                        </div>
-                        <div style={{ height: 150 }}>
-                            <img
-                                style={{ objectFit: "cover", verticalAlign: "bottom", height: "100%", width: "100%" }}
-                                src="https://a0.muscache.com/im/pictures/5d9cf3ef-0348-4aee-8d25-ad32acaaed8a.jpg?aki_policy=large"
-                                alt=""
-                            />
+                    
+                    <div className="container">
+                        <div className="row">
+                            <div className={`${styles.imageslider} col-6 border p-2`}>
+                                <img src={images[0]} alt="hotel rooms" width="100%" height="100%"></img>
+                            </div>
+                            <div className={`${styles.imageslider} col-6 border`}>
+                                <div className="row">
+                                    <div className="col-6 pt-2 px-1">
+                                        <img src="https://wisont.files.wordpress.com/2012/12/dasada-room-junior-suite-01.jpg" alt="hotel rooms" height="160px" width="100%"></img>
+                                    </div>
+                                    <div className="col-6 pt-2 px-1">
+                                        <img src={images[2]} alt="hotel rooms" height="160px" width="100%" ></img>
+                                    </div>
+                                    <div className="col-6 pt-2 px-1">
+                                        <img src={images[3]} alt="hotel rooms" height="160px" width="100%"></img>
+                                    </div>
+                                    <div className="col-6 pt-2 px-1">
+                                        <img src="https://wisont.files.wordpress.com/2012/12/dasada-room-junior-suite-04.jpg" alt="hotel rooms" height="160px" width="100%"></img>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div >
-    )
+            </div >
+        )
+    }
+    else{
+        return (
+            <div>Loading...</div>
+        )
+    }
+    
 }

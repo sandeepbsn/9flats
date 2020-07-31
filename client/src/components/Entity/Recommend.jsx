@@ -1,5 +1,6 @@
 import React from "react"
 import { ControlledCarousel, Carousel, Card, CardDeck, Container, CarouselItem } from "react-bootstrap"
+import styles from './Entity.module.css'
 
 
 
@@ -56,10 +57,11 @@ function Recommendation({recommendations}) {
     
 
     return (
-        <Container >
-            <h5>Recommendations</h5>
+        <Container className={`${styles.description} mt-2 mb-5`}>
+            <h2>Recommendations</h2>
+            <hr></hr>
             
-            <Carousel className=" mb-3 p-4 border rounded bg-light">
+            <Carousel className="p-0">
                 {master}
             </Carousel>
 

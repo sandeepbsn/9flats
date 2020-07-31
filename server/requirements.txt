@@ -5,3 +5,8 @@ flask-migrate
 flask-cors
 python-dotenv
 pycodestyle
+google-api-python-client
+boto3
+razorpay
+twilio
+pyotp

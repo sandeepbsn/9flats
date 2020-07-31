@@ -59,12 +59,12 @@ export default function Description({basicDetails, blockedDates}){
 
     return (
         <div>
-            <div className="container mb-3">
-                <div className="d-flex flex-row p-4 border rounded bg-light text-justify">
+            <div className={`${styles.description} container mb-3 p-0`}>
+                <div className="d-flex flex-row text-justify">
                     <div className="col-md-7 col-12">
                         <p>
-                            <strong>Description</strong>
-                            <br></br>
+                            <h2>Description</h2>
+                            <hr></hr>
                             {basicDetails ? basicDetails['description'] : "Loading..."}
                         </p>
                     </div>

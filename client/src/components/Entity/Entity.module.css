@@ -21,3 +21,14 @@ td{
 tr, td{
     height: 20px;
 }
+
+.imageslider{
+    height: 350px;
+}
+.description{
+    font-family: serif;
+}
+.roomtd{
+    height: 60px !important;
+    width: 100% !important;
+}
