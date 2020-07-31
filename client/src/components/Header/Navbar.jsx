@@ -31,11 +31,11 @@ export default function Navigation() {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        {/* <Nav className="ml-auto">
-                            {userInfo['name']}
-                        </Nav> */}
-                        <Nav className="ml-auto">
-                            <button className = "btn btn-sm btn-outline-danger"
+                        <Nav className="ml-auto mr-4">
+                            <b><span className="text-info">Welcome ! &nbsp;</span> {userInfo['name']}</b>
+                        </Nav>
+                        <Nav>
+                            <button className = "btn btn-sm btn-outline-info"
                             onClick={()=>dispatch(logoutUser())}>
                                 Logout
                             </button>
