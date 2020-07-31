@@ -1,0 +1,184 @@
+.pageflex{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.nameflex{
+    display: flex;
+}
+.nameflex > div{
+    margin-right: 10px;
+}
+.searchHeader{
+    z-index: 1;
+    position: fixed;
+}
+.searchHeaderFont{
+    font-size: small;
+    font-weight: 500;
+}
+.searchbarflex{
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    border-radius: 5px;
+    margin: auto;
+    background-color: rgba(0,162,190,0.8);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 60px;
+}
+
+.datecomponent{
+    height: 40px;
+    width:100px;
+    border-radius: 1mm;
+
+}
+.searchcomponent{
+    height: 40px;
+    width:200px;
+    border-radius: 1mm;
+}
+.searchbutton{
+    height: 40px;
+    background-color: #ff7e00 !important;
+    font-size: 18px !important;
+    color: white !important;
+    border: None !important;
+}
+
+
+
+
+.category, .badge{
+    background-color: #0041fd;
+}
+.badge{
+    color:white;
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.card-img {
+    width: 100%;
+    padding-bottom: 66%;
+    background-size: cover;
+    background-position: center center;
+    cursor: pointer;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+    flex-shrink: 0;
+}
+.label_photo, .label_instant{
+    max-width: 180px;
+    background-color: #0041fd;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    font-style: normal;
+    padding: 2px 5px;
+    position: absolute;
+}
+.label_instant{
+    background: #1ab64f;
+}
+.label_not{
+    background: darkred;
+}
+
+
+.pageBox{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    align-items: center;
+    margin: auto;
+}
+.pageBox > div{
+    margin: 10px;
+}
+.rows{
+    width: 30%;
+}
+.page{
+    display: flex;
+    width: 85%;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.page button{
+    margin: 0px 10px 0px 0px;
+    border-radius: 10%;
+    padding: 0px 10px 0px 10px; 
+    background-color: white;  
+    border: 1px solid #0041fd;
+}
+
+.activepage{
+    background-color: rgba(0,0,255,0.8) !important;
+}
+
+.suggestionContainer{
+    display: flex;
+    width: 260px;
+    position: fixed;
+}
+.suggestion{
+    border:1px dotted black;
+    background-color: white;
+    color: black;
+    width: 260px;
+    height: 35px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: fixed;
+    z-index: 999;
+}
+.locationDiv,.locationImage{
+    z-index: 999;
+}
+
+.suggestion:hover{
+    cursor: pointer;
+}
+.customWrapper{
+    border: 1px solid red;
+}
+
+.wheretogo{
+    padding-right: 38px;
+    background-position: 100% 0px;
+    font-size: 18px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    border-radius: 0.25rem !important;
+    border: 1px solid #dee2e6 !important;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    overflow: visible;
+    background-position-y: center;
+}
+
+.wheretogo {
+    width: 260px !important;
+    background-image: url("https://img.icons8.com/emoji/30/000000/globe-with-meridians-emoji.png");
+}
