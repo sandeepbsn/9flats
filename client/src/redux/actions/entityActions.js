@@ -1,4 +1,4 @@
-import {FETCH_BASIC_INFO, FETCH_AMENITY, FETCH_ROOMS, FETCH_REVIEWS, FETCH_RECOMMENDATIONS, FETCH_ROOM_STATUS, FETCH_BLOCKED_DATES, FETCH_VALIDATION, CLEAR_VALIDATION, VERIFY_OTP} from '../actiontypes/entityActionTypes'
+import {FETCH_BASIC_INFO, FETCH_AMENITY, FETCH_ROOMS, FETCH_REVIEWS, FETCH_RECOMMENDATIONS, FETCH_ROOM_STATUS, FETCH_BLOCKED_DATES, FETCH_VALIDATION, CLEAR_VALIDATION, VERIFY_OTP, CLEAR_OTP} from '../actiontypes/entityActionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 
 
@@ -37,6 +37,10 @@ export const getBlockedDates = (payload) => ({
 })
 export const clearValidation = () => ({
     type:CLEAR_VALIDATION
+})
+
+export const clearOtp = () => ({
+    type:CLEAR_OTP
 })
 
 export const getValidation = (payload) => ({
@@ -120,5 +124,12 @@ export const verifyOtpBackend = payload => dispatch => {
         ...payload
     })
     .then(res=>dispatch(verifyOtp(res['data'])))
+    .catch(err=>console.log(err))
+}
+export const sendMailBackend = payload => dispatch =>{
+    return axiosInstance.post('/entity/mail',{
+        ...payload
+    })
+    .then(res=>console.log(res['data']))
     .catch(err=>console.log(err))
 }

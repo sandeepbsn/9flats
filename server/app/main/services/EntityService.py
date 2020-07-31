@@ -17,6 +17,8 @@ import hmac,hashlib
 import uuid
 from twilio.rest import Client
 import pyotp
+import boto3
+from botocore.exceptions import ClientError
 
 
 
@@ -39,6 +41,8 @@ def getPropertyDetails(entity_id):
     basic_details['description'] = property_data.description
     basic_details['rooms'] = property_data.rooms
     basic_details['price'] = property_data.price
+    basic_details['lat'] = property_data.lat
+    basic_details['lng'] = property_data.lng
     basic_details['review'] = avg_review
     final_detail['basic_details'] = basic_details
 
@@ -265,7 +269,8 @@ def getPaymentValidation(booking_info):
 
         return json.dumps({
             "status":"success",
-            "message":"payment successfull"
+            "message":"payment successfull",
+            "bookingInfo":booking_info
         })
     else:
         return json.dumps({
@@ -324,6 +329,114 @@ def onCloseOtp(data):
     db.session.commit()
 
     return json.dumps({"message":"otp cleared"})
+
+def sendMailUser(booking_info):
+    data = booking_info['bookingInfo']
+    name = data['firstname'] + " " + data['lastname']
+    SENDER = "contact@sandeepbabu.tech"
+    RECIPIENT = "sandeep.bsn@gmail.com"
+    AWS_REGION = "ap-south-1"
+    SUBJECT = "EMAIL TESTING"
+    BODY_TEXT = ("Hello email testing friday")
+    CHARSET = "UTF-8"
+    client = boto3.client('ses',region_name=AWS_REGION)
+    BODY_HTML = """<html>
+            <head></head>
+            <body>
+            <div style="display:flex;">
+                <div>
+                    <h1 style="color:green;">Booking confirmation</h1>
+                </div>
+            </div>
+            <div>
+                <table style="width:200px;">
+                    <tr style="height:20px;">
+                        <td style="width:70px;">
+                            Name
+                        </td>
+                        <td style="width:100px;">
+                            %s
+                        </td>
+                    </tr>
+                    <tr style="height:"20px;">
+                        <td style="width:70px;">
+                            Email
+                        </td>
+                        <td style="width:100px;">
+                            %s
+                        </td>
+                    </tr>
+                    <tr style="height:"20px;">
+                        <td style="width:70px;">
+                            Order Id
+                        </td>
+                        <td style="width:100px;">
+                            %s
+                        </td>
+                    </tr>
+                    <tr style="height:"20px;">
+                        <td style="width:70px;">
+                            Payment Id
+                        </td>
+                        <td style="width:100px;">
+                            %s
+                        </td>
+                    </tr>
+                    <tr style="height:"20px;">
+                        <td style="width:70px;">
+                            Check -in & check out
+                        </td>
+                        <td style="width:100px;">
+                            %s-%s
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </html>
+                        """%(name,data['email'], data['razorpay_order_id'], data['razorpay_payment_id'], data['start_date'], data['end_date'] )
+    try:
+        #Provide the contents of the email.
+        response = client.send_email(
+            Destination={
+                'ToAddresses': [
+                    RECIPIENT,
+                ],
+            },
+            Message={
+                'Body': {
+                    'Html': {
+                        'Charset': CHARSET,
+                        'Data': BODY_HTML,
+                    },
+                    'Text': {
+                        'Charset': CHARSET,
+                        'Data': BODY_TEXT,
+                    },
+                },
+                'Subject': {
+                    'Charset': CHARSET,
+                    'Data': SUBJECT,
+                },
+            },
+            Source=SENDER,
+            # If you are not using a configuration set, comment or delete the
+            # following line
+            # ConfigurationSetName=CONFIGURATION_SET,
+        )
+        return json.dumps({"message":"email delivered successfully"})
+    # Display an error if something goes wrong.	
+    except ClientError as e:
+        print(e.response['Error']['Message'])
+        return e.response['Error']['Message']
+    else:
+        print("Email sent! Message ID:"),
+        print(response['MessageId']) 
+        return response['MessageId'] 
+
+    return json.dumps({"message":"email delivered successfully"})
+
+
+
 
 
 

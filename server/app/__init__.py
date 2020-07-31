@@ -9,6 +9,7 @@ from .main.routes.ListingRoute import listing as listing_blueprint
 from .main.routes.EntityRoute import entity as entity_blueprint
 
 
+
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(app_config[config_name])
@@ -16,6 +17,7 @@ def create_app(config_name):
 
     db.init_app(app)
     migrate = Migrate(app, db)
+    
 
     app.register_blueprint(login_blueprint, url_prefix='/login')
     app.register_blueprint(register_blueprint, url_prefix='/register')

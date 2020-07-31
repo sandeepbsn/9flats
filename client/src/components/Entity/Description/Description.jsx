@@ -52,7 +52,7 @@ export default function Description({basicDetails, blockedDates}){
         e.preventDefault()
         let start = startDate.toLocaleDateString().split("/").reverse().join("-")
         let end = endDate.toLocaleDateString().split("/").reverse().join("-")
-        let payload = `/${params['property_id']}?start_date=${start}&end_date=${end}`
+        let payload = `/${params['property_id']}?search_query=${query.get('search_query')}&start_date=${start}&end_date=${end}`
         dispatch(getRoomStatusBackend(payload))
         history.push(`/entity${payload}`)
     }  

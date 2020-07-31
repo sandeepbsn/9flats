@@ -1,4 +1,4 @@
-import {FETCH_BASIC_INFO, FETCH_AMENITY, FETCH_ROOMS, FETCH_REVIEWS, FETCH_RECOMMENDATIONS, FETCH_ROOM_STATUS, FETCH_BLOCKED_DATES, FETCH_VALIDATION, CLEAR_VALIDATION, VERIFY_OTP} from '../actiontypes/entityActionTypes'
+import {FETCH_BASIC_INFO, FETCH_AMENITY, FETCH_ROOMS, FETCH_REVIEWS, FETCH_RECOMMENDATIONS, FETCH_ROOM_STATUS, FETCH_BLOCKED_DATES, FETCH_VALIDATION, CLEAR_VALIDATION, VERIFY_OTP, CLEAR_OTP} from '../actiontypes/entityActionTypes'
 
 export const entityState = {
     "basicInfo":"",
@@ -72,6 +72,12 @@ export default (state = entityState, {type,payload}) => {
             return ({
                 ...state,
                 "otp":payload
+            })
+
+        case CLEAR_OTP:
+            return ({
+                ...state,
+                "otp":""
             })
         default:
             return state

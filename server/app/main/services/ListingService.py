@@ -23,7 +23,7 @@ def getAllListings(params):
     # getting the results bases on basic search query
     search_query = tuple(search_query.split(",")) if "," in search_query else (search_query, 'None')
 
-    raw_data = db.session.execute('''SELECT pp.id, pp.name, pp.city, pp.state, pp.country,pp.type,pp.price, pp.rooms, aa.wifi,aa.ac,aa.kitchen,aa.breakfast,aa.pool,aa.heater,aa.frontdesk, pp.images FROM properties as pp JOIN amenities as aa ON pp.id = aa.property_id WHERE pp.name IN %s OR pp.city IN %s OR pp.state IN %s OR pp.country IN %s;'''%(search_query, search_query, search_query, search_query))
+    raw_data = db.session.execute('''SELECT pp.id, pp.name, pp.city, pp.state, pp.country,pp.type,pp.price, pp.rooms,pp.lat,pp.lng, aa.wifi,aa.ac,aa.kitchen,aa.breakfast,aa.pool,aa.heater,aa.frontdesk, pp.images FROM properties as pp JOIN amenities as aa ON pp.id = aa.property_id WHERE pp.name IN %s OR pp.city IN %s OR pp.state IN %s OR pp.country IN %s;'''%(search_query, search_query, search_query, search_query))
 
     # appending the results to an array
     initial_results = []
@@ -51,6 +51,8 @@ def getAllListings(params):
         temp_dict['type'] = data['type']
         temp_dict['price'] = data['price']
         temp_dict['rooms'] = data['rooms']
+        temp_dict['lat'] = data['lat']
+        temp_dict['lng'] = data['lng']
         temp_dict['wifi'] = data['wifi']
         temp_dict['ac'] = data['ac']
         temp_dict['kitchen'] = data['kitchen']

@@ -1,7 +1,13 @@
 from flask import Blueprint
 from flask import request
-from ..services.EntityService import getPropertyDetails, getAmenityDetails, getRoomDetails, fetchRecommendations, getReviewsDetails, fetchBlockedDates, getOrderId, getPaymentValidation, fetchRoomAvailability, sendUserOtp, verifiyUserOtp
+from ..services.EntityService import getPropertyDetails, getAmenityDetails, getRoomDetails, fetchRecommendations, getReviewsDetails, fetchBlockedDates, getOrderId, getPaymentValidation, fetchRoomAvailability, sendUserOtp, verifiyUserOtp, sendMailUser
 import json
+from .. import db
+from ..models.PropertyModel import Property
+
+
+
+
 
 entity = Blueprint('entity', __name__)
 
@@ -87,6 +93,84 @@ def verifyOtp():
     response = verifiyUserOtp(data)
 
     return response
+
+@entity.route('/mail', methods = ['POST'])
+def sendMail():
+    data = request.get_json()
+
+    response = sendMailUser(data)
+
+    return response
+
+
+
+@entity.route('/location', methods = ['POST','GET'])
+def enterLocations():
+    locations = [
+        {
+            "lat":"12.969828",
+            "lng":"77.747808"
+        },
+        {
+            "lat":"12.976044",
+            "lng":"77.605704"
+        },
+        {
+            "lat":"12.985813",
+            "lng":"77.606633" 
+        },
+        {
+            "lat":"12.986158",
+            "lng":"77.607041" 
+        },
+        {
+            "lat":"12.988890",
+            "lng":" 77.615125" 
+        },
+        {
+            "lat":"12.996123",
+            "lng":"77.614440" 
+        },
+        {
+            "lat":"12.999081",
+            "lng":"77.616768"
+        },
+        {
+            "lat":"12.994816",
+            "lng":"77.609140"
+        },
+        {
+            "lat":"13.005275",
+            "lng":"77.617072"
+        },
+        {
+            "lat":"13.005136",
+            "lng":"77.611821"
+        },
+        {
+            "lat":"13.003373",
+            "lng":"77.621360"
+        },
+        {
+            "lat":"13.005819",
+            "lng":"77.626242"
+        }
+
+    ]
+
+    bangalore = Property.query.filter(Property.city == 'Bengaluru').all()
+    index = 0
+    for location in bangalore:
+        if location.id == 16:continue
+        one = locations[index]['lat']
+        two = locations[index]['lng']
+        print("************", index, location, location.id)
+        query = '''UPDATE properties SET lat = '%s', lng = '%s' WHERE id = %d;'''%(one,two,location.id)
+        db.session.execute(query)
+        db.session.commit()
+        index = index + 1
+
+    return "done"
 
 
 

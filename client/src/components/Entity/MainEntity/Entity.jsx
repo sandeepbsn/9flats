@@ -8,6 +8,7 @@ import Recommendation from '../Recommend'
 import {getBasicInfoBackend, getAmenitiesBackend, getRoomsBackend, getReviewsBackend, getRecommendationsBackend, getRoomStatusBackend, getBlockedDatesBackend} from '../../../redux/actions/entityActions'
 import {useParams, useLocation} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
+import MapImage from '../MapImage'
 
 export default function Entity(){
     const basicInfo = useSelector(state=>state.entity.basicInfo)
@@ -47,6 +48,7 @@ export default function Entity(){
             <div>
                 <ImageEntity basicDetails = {basicInfo}/>
                 <Description basicDetails={basicInfo} blockedDates = {blockedDates} />
+                <MapImage basicDetails={query.get('search_query')}/>
                 <Amenities amenities = {amenities}/>
                 <Table rooms = {rooms} room_status = {room_status}/>
                 <Reviews reviews = {reviews}/>

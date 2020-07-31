@@ -40,7 +40,7 @@ function Recommendation({recommendations}) {
                             </Card.Text>
                             <Card.Title>
                                 <span>
-                                    <strong>&#8377; {recommendations[index]['price']}</strong>
+                                    <strong>&#8377;  {recommendations[index]['price']}</strong>
                                         /per night
                                         </span></Card.Title>
                         </Card.Body>

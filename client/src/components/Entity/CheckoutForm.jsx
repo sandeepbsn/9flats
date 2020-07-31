@@ -2,9 +2,10 @@ import React, {useState, useEffect} from "react"
 import { Form, Col } from "react-bootstrap"
 import {useLocation, useParams, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {getOrderIdBackend, getPaymentBackend, getOtpBackend, verifyOtp, verifyOtpBackend} from '../../redux/actions/entityActions'
+import {getOrderIdBackend, getPaymentBackend, getOtpBackend, verifyOtp, verifyOtpBackend, sendMailBackend} from '../../redux/actions/entityActions'
 import axios from 'axios'
 import {Modal, Button} from 'react-bootstrap'
+import ReactGA from 'react-ga'
 
 
 function PropertyCheckout() {
@@ -22,6 +23,8 @@ function PropertyCheckout() {
     useEffect(()=>{
         if(final_res?.['status']){
             if(final_res['status'] === 'success'){
+                console.log(final_res)
+                dispatch(sendMailBackend(final_res))
                 alert(final_res['message'])
                 history.push('/')
             }
@@ -70,6 +73,10 @@ function PropertyCheckout() {
     }
     const handleShow = (e) => {
         e.preventDefault()
+        ReactGA.event({
+            category:'Button',
+            action:'user clicked the confirm booking button'
+        })
         dispatch(getOtpBackend({"phone":bookingInfo['mobile']}))
         setShow(true)
     }
@@ -178,7 +185,7 @@ function PropertyCheckout() {
                             <div className="text-center">
                                 {/* <button className="btn btn-success btn-block" type="submit">Confirm Booking</button> */}
                                 <Button variant="primary" onClick={handleShow}>
-                                Launch demo modal
+                                Confirm Booking
                                 </Button>
 
                                 {otp === "" || otp?.['error'] === false? 

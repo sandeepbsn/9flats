@@ -5,6 +5,8 @@ import {Card} from 'react-bootstrap'
 import {getListingsBackend} from '../../redux/actions/listingActions'   
 import styles from './ListingPage.module.css'
 import PageList from './PageList'
+import Maps from './Maps'
+import {v4 as uuidv4} from 'uuid'
 
 export default function Properties(){
     const data = useSelector(state=>state.listing.pageData)
@@ -34,25 +36,24 @@ export default function Properties(){
         <div className="row">
              <div className="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                 <div className="row">
-                    <div className="col-12 p-2">
+                    <div className={`${styles.searchHeader} col-12 p-2`}>
                         <Card>
-                            <Card.Img variant="top" src="https://images.9flats.com/geo_locator_photos/photos/25-1552992428/panorama.jpg" />
                             <Card.Body>
                                 <Card.Title>
                                     <h1 className="search__header__city text-truncate">
                                         <b>
                                             {query.get('search_query') + " "}
                                         </b>
-                                        {data ? <small>({data['totalCount']})</small>:null}
+                                        {data ? <small className={`${styles.searchHeaderFont} text-muted`} >({data['totalCount']} results)</small>:null}
                                     </h1>
                                 </Card.Title>
                             </Card.Body>
                         </Card>
                     </div>
                     {data && data['data'].length ? data['data'].map(item => (
-                        <div className="col-6 p-20">
+                        <div className="col-6 p-20" key={uuidv4()}>
                             <Card >
-                                <Link to = {`/entity/${item['id']}?start_date=${query.get('start_date')}&end_date=${query.get('end_date')}`}>
+                                <Link to = {`/entity/${item['id']}?search_query=${item['name']}&start_date=${query.get('start_date')}&end_date=${query.get('end_date')}`}>
                                     <Card.Img variant="top" src={item.images[0]} bsPrefix="card-img" />
                                 </Link>
                                 <span className={`${item['status'] === 'available' ? [styles.label_photo,styles.label_instant].join(" ") :[styles.label_photo, styles.label_not].join(" ")}`}>{item['status']}</span>
@@ -87,9 +88,11 @@ export default function Properties(){
                     <PageList total_pages = {Math.ceil(Number(data['totalCount'])/per_page)}/>
                 </div>:null}
             </div>
-            <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-none d-sm-block bg-primary"
-                style={{ right: 0, left: "auto", position: "fixed" }}>
-                <div><h1>GOOGLE MAP</h1></div>
+            <div className="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-none d-sm-block mt-2"
+                style={{ right: 0, left: "auto", position: "relative" ,"zIndex":"1"}}>
+                <div>
+                    {data && data['data'] ? <Maps coordinates={data['data']}/> : "Loading..."}
+                </div>
             </div>
         </div>
     )

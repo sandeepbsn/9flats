@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import TopCities from './TopCities'
 import PopularPlaces from './PopularPlaces'
 import {clearValidation} from '../../redux/actions/entityActions'
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
 
 
 
@@ -70,14 +72,37 @@ export default function LandingPage(){
                 <div className="row m-5  justify-content-center">
                   <div className={`${styles.searchbg} rounded p-2`}>
                     <form onSubmit={(e)=>handleSearch(e)} className="d-flex justify-content-center">
-                      <input
-                        placeholder="Where do you want to go?"
-                        tabIndex="1" autoComplete="off"
-                        className={`${styles.wheretogo} mr-sm-2`}
-                        type="text" value={params['search_query']}
-                        name="search_query" id="search_query"
-                        onChange={(e)=>handleChange(e)} />
-                         
+                      
+                      <GooglePlacesAutocomplete
+                        types = "region"
+                        onSelect={(description)=>setParams({
+                          ...params,
+                          "search_query":description['description']
+                        })}
+                        // apiKey="AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M"
+                        renderInput={(props) => (
+                          <div>
+                            <input className={styles.wheretogo}
+                              // Custom properties
+                              {...props}
+                            />
+                          </div>
+                        )}
+                        renderSuggestions={(active, suggestions, onSelectSuggestion) => (
+                          <div className={styles.suggestionsContainer}>
+                            {
+                              suggestions.map((suggestion) => (
+                                <div
+                                  className={styles.suggestion}
+                                  onClick={(event) => onSelectSuggestion(suggestion, event)}
+                                >
+                                  {suggestion.description}
+                                </div>
+                              ))
+                            }
+                          </div>
+                        )}
+                      />                         
                       <div>
                       <DatePicker
                         className={`${styles.datecomponent} ${styles.fromDate} mx-2`}

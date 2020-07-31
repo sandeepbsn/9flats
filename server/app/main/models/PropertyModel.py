@@ -16,3 +16,5 @@ class Property(db.Model):
     description = db.Column(db.Text, nullable = True)
     rooms = db.Column(db.Integer, nullable = False)
     price=db.Column(db.Integer, nullable = False)
+    lat=db.Column(db.String(50), nullable=True)
+    lng=db.Column(db.String(50),nullable=True)

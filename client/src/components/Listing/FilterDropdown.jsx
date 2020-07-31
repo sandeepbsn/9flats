@@ -95,15 +95,18 @@ export default function FilterDropdown(){
         closeOnSelect={false}
         hidePlaceholder={true}
         placeholder="Filters"
-        style = {{ chips: { background: "none", color:"black" }, 
+        style = {{ chips: { background: "none", color:"black",position:"relative",left:"10px"}, 
         searchBox: {
+            "display":"flex",
             "height":"40px", 
-            "width":"275px",
+            "width":"250px",
             "white-space": "nowrap", 
             "overflow": "hidden",
             "border": "none",
-            "text-overflow": "clip",
-            "backgroundColor":"white" 
+            "text-overflow": "ellipsis",
+            "backgroundColor":"white" ,
+            "padding":"2px",
+            "margin-left":"2px"
             },
         }}
         />

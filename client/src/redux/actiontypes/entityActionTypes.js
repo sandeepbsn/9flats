@@ -9,5 +9,7 @@ export const FETCH_VALIDATION = "FETCH_VALIDATION"
 export const CLEAR_VALIDATION = "CLEAR_VALIDATION"
 export const GET_OTP = "GET_OTP"
 export const VERIFY_OTP = "VERIFY_OTP"
+export const CLEAR_OTP = "CLEAR_OTP"
+export const SEND_MAIL = "SEND_MAIL"
 
 
