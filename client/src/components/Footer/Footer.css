@@ -2,3 +2,9 @@
     background-color: rgb(235, 233, 233);
     padding-top: 30px;
 }
+.list-group > li{
+    background-color: rgb(235, 233, 233);
+    border: 0px;
+    padding: 0px;
+    
+}
