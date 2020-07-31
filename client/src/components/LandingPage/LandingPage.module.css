@@ -8,9 +8,10 @@
 
 .searchbg{
     background-color: rgba(0,162,190,0.8);
-    height: 60px;
+    /* height: 60px; */
 }
 .wheretogo, .beds, .fromDate, .toDate{
+    
     padding-right: 38px;
     background-position: 100% 0px;
     font-size: 18px;
@@ -27,7 +28,7 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     overflow: visible;
     background-position-y: center;
-}
+} 
 
 .wheretogo {
     width: 260px !important;
@@ -37,14 +38,14 @@
 
 .datecomponent{
     height: 40px;
-    width:100px;
+    /* width:100px; */
     border-radius: 0.25rem !important;
     border: 1px solid #dee2e6 !important;
 
 }
 
 .beds {
-    width: 110px;
+    width: 135px;
     background-image: url("https://img.icons8.com/ultraviolet/30/000000/gender-neutral-user.png");
 }
 
@@ -121,6 +122,12 @@ input:focus, textarea:focus, select:focus{
 
 
 
+.topCity .image {
+    background-size: cover;
+    padding-top: 56.25%;
+    background-position: 50% 50%;
+    margin-bottom: 10px;
+}
 
 
 
