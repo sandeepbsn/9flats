@@ -13,3 +13,11 @@ td{
     border-radius: 1mm;
 
 }
+
+.successmodal{
+    font-family: 'Kurale', serif !important;
+}
+
+tr, td{
+    height: 20px;
+}

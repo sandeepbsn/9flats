@@ -4,14 +4,14 @@ import double from '../Entity/Resources/Images/double.png'
 import triple from '../Entity/Resources/Images/triple.png'
 import {useLocation, useHistory, useParams} from 'react-router-dom'
 
-export default function Table({rooms, room_status}) {
+export default function Table({rooms, room_status, basicDetails}) {
     const location = useLocation()
     const history = useHistory()
     const params = useParams()
 
     const query = new URLSearchParams(location.search)
     
-    const handleBook = (price, room) =>{
+    const handleBook = (price, room, name) =>{
         const s_date = query.get('start_date').split("-").map(Number)
         const d1 = new Date(s_date[0], s_date[1] - 1, s_date[2])
 
@@ -20,7 +20,7 @@ export default function Table({rooms, room_status}) {
 
         let days = Math.round((d2.getTime()-d1.getTime())/(1000*60*60*24))
 
-        let payload = `/${params['property_id']}?start_date=${query.get('start_date')}&end_date=${query.get('end_date')}&days=${days}&price=${price}&room_type=${room}`
+        let payload = `/${params['property_id']}?&hotel=${name}&start_date=${query.get('start_date')}&end_date=${query.get('end_date')}&days=${days}&price=${price}&room_type=${room}`
         history.push(`/payment${payload}`)
     }
     console.log(rooms, room_status)
@@ -61,7 +61,7 @@ export default function Table({rooms, room_status}) {
                                         <td className="text-center">
                                             {room_status[elem['room_type']] !== 'booked'? 
                                             <button className="btn btn-sm btn-success"
-                                            onClick = {()=>handleBook(elem['price'], elem['room_type'])}>
+                                            onClick = {()=>handleBook(elem['price'], elem['room_type'], basicDetails['name'])}>
                                                 Book Now
                                             </button>:
                                             <button className="btn btn-sm btn-success disabled">

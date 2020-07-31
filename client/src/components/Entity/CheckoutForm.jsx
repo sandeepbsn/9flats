@@ -3,9 +3,9 @@ import { Form, Col } from "react-bootstrap"
 import {useLocation, useParams, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getOrderIdBackend, getPaymentBackend, getOtpBackend, verifyOtp, verifyOtpBackend, sendMailBackend} from '../../redux/actions/entityActions'
-import axios from 'axios'
 import {Modal, Button} from 'react-bootstrap'
 import ReactGA from 'react-ga'
+import styles from './Entity.module.css'
 
 
 function PropertyCheckout() {
@@ -17,7 +17,7 @@ function PropertyCheckout() {
     const final_res = useSelector(state => state.entity.validation)
     const otp = useSelector(state => state.entity.otp) 
 
-
+    const [display,setDisplay] = useState(false)
     const [show, setShow] = useState(false);
     const [pay, setPay] = useState(false)
     useEffect(()=>{
@@ -25,8 +25,8 @@ function PropertyCheckout() {
             if(final_res['status'] === 'success'){
                 console.log(final_res)
                 dispatch(sendMailBackend(final_res))
-                alert(final_res['message'])
-                history.push('/')
+                setDisplay(true)
+                // history.push('/')
             }
             else{
                 alert(final_res['message'])
@@ -70,6 +70,11 @@ function PropertyCheckout() {
     const handleClose = async() => {
         await dispatch(verifyOtpBackend({"phone":bookingInfo['mobile'], "user_input":user_otp}))   
         setShow(false) 
+    }
+
+    const handleSuccessClose = () => {
+        setDisplay(false)
+        history.push('/')
     }
     const handleShow = (e) => {
         e.preventDefault()
@@ -191,42 +196,50 @@ function PropertyCheckout() {
                                 {otp === "" || otp?.['error'] === false? 
                                 <Modal show={show} onHide={handleClose}>
                                 <Modal.Header closeButton>
-                                <Modal.Title>Modal heading</Modal.Title>
+                                <Modal.Title>OTP Verification</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
+                                    <div className={`${styles.successmodal} m-auto`}>
+                                        Please enter the opt sent to your mobile!
+                                        <input type="text"
+                                        placeholder = "OTP from mobile"
+                                        value={user_otp}
+                                        onChange={(e)=>handleOtpChange(e)}/>
+                                    </div>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <div className="m-auto">
+                                    <Button variant="success" className="mx-2" onClick={handleClose}>
+                                        Verify OTP
+                                    </Button>
+                                    <Button variant="danger" className="mx-2" onClick={handleClose}>
+                                        Close
+                                    </Button>
+                                    </div>
+                                </Modal.Footer>
+                            </Modal>:
+                            <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                            <Modal.Title>OTP Verification</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className={`${styles.successmodal} m-auto`}>
                                     Please enter the opt sent to your mobile!
                                     <input type="text"
                                     placeholder = "OTP from mobile"
                                     value={user_otp}
                                     onChange={(e)=>handleOtpChange(e)}/>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                <Button variant="secondary" onClick={handleClose}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" onClick={handleClose}>
-                                    Save Changes
-                                </Button>
-                                </Modal.Footer>
-                            </Modal>:
-                            <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                Please enter the opt sent to your mobile!
-                                <input type="text"
-                                placeholder = "OTP from mobile"
-                                value={user_otp}
-                                onChange={(e)=>handleOtpChange(e)}/>
+                                </div>
                             </Modal.Body>
                             <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={handleClose}>
-                                Save Changes
-                            </Button>
+                                <div>
+                                <Button variant="success" className = "mx-2" onClick={handleClose}>
+                                    Verify OTP
+                                </Button>
+                                <Button variant="danger" className = "mx-2" onClick={handleClose}>
+                                    Close
+                                </Button>
+                                </div>
                             <small className="text-danger">OTP invalid. Please try again</small>
                             </Modal.Footer>
                         </Modal>}
@@ -237,8 +250,8 @@ function PropertyCheckout() {
                         <div className="border rounded shadow p-3" style={{ width: 350 }}>
                             <div className="d-flex flex-row justify-cotent-center align-items-center mt-3" >
                                 <div className="col-8">
-                                    <h6><b>The Trident</b></h6>
-                                    <p>Private room in farm stay in Bangalore</p>
+                                    <h6><b>{query.get('hotel')}</b></h6>
+                                    <p>{query.get('room_type')} room in {query.get('hotel')}</p>
                                 </div>
                                 <div className="col-4">
                                     <img className="img-fluid" src="https://q-xx.bstatic.com/xdata/images/hotel/max500/16186396.jpg?k=ee4495ac70ef5c8665f457cbd509bd0a606be9f8ce41eef4eb2befd278ab0379&amp;o=" alt="" />
@@ -248,10 +261,10 @@ function PropertyCheckout() {
                             <div className="d-flex flex-row my-4">
                                 <div className="col-12">
                                     <div className="mb-2">
-                                        <span><img src="https://img.icons8.com/ios/30/000000/guest-male.png" alt="" /> 1 guest</span>
+                                        <span><img src="https://img.icons8.com/ios/30/000000/guest-male.png" alt="" /> 2 guest</span>
                                     </div>
                                     <div>
-                                        <span><img src="https://img.icons8.com/ios/30/000000/planner.png" alt="" />  Jul 31, 2020 &#8594; Aug 1, 2020</span>
+                                        <span><img src="https://img.icons8.com/ios/30/000000/planner.png" alt="" />  {query.get('start_date')} &#8594; {query.get('end_date')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -259,26 +272,62 @@ function PropertyCheckout() {
                                 <table className="table table-borderless ">
                                     <tbody>
                                         <tr>
-                                            <td >₹1,200.00 x 1 night</td>
-                                            <td className="text-right">₹1,200.00</td>
+                                            <td >₹{query.get('price')} x {query.get('days')} night</td>
+                                            <td className="text-right">₹{Number(query.get('days') * Number(query.get('price')))}</td>
                                         </tr>
-                                        <tr>
-                                            <td >Service fee</td>
-                                            <td className="text-right">₹169.41</td>
-                                        </tr>
-                                        <tr>
-                                            <td >Occupancy taxes and fees</td>
-                                            <td className="text-right">₹144.00</td>
-                                        </tr>
-
                                         <tr className="border-top">
                                             <th scope="row">Total(INR)</th>
-                                            <td className="text-right"><b>₹1,513.41</b></td>
+                                            <td className="text-right"><b>₹{Number(query.get('days') * Number(query.get('price')))}</b></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div>
+                        {final_res ? 
+                            <div className={styles.successmodal} style={{"height":"400px"}}>
+                                <Modal show={display} onHide={handleSuccessClose}>
+                                    <Modal.Header className="d-flex flex-column border-light align-items-center">
+                                    <div clasName="m-auto"><h2 className="text-success">Payment Confirmation!</h2></div>
+                                    <div className="m-auto">
+                                        <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Tick_Mark_Dark-512.png" width="120px" height="150px"></img>
+                                    </div>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <table className="table table-sm table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Name</strong></td>
+                                                    <td>{final_res['bookingInfo']['firstname']} {final_res['bookingInfo']['lastname']}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Email</strong></td>
+                                                    <td>{final_res['bookingInfo']['email']}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Phone</strong></td>
+                                                    <td>{final_res['bookingInfo']['mobile']}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Order Id</strong></td>
+                                                    <td>{final_res['bookingInfo']['razorpay_order_id']}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Payment Id</strong></td>
+                                                    <td>{final_res['bookingInfo']['razorpay_payment_id']}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </Modal.Body>
+                                    <Modal.Footer className="border-light">
+                                    <Button className="btn btn-success m-auto px-5 py-2" onClick={handleSuccessClose}>
+                                        Close
+                                    </Button>
+                                    </Modal.Footer>
+                                </Modal>
+                            </div>:
+                        null}
                     </div>
                 </div>
             </div>

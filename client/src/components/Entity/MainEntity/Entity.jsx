@@ -50,7 +50,7 @@ export default function Entity(){
                 <Description basicDetails={basicInfo} blockedDates = {blockedDates} />
                 <MapImage basicDetails={query.get('search_query')}/>
                 <Amenities amenities = {amenities}/>
-                <Table rooms = {rooms} room_status = {room_status}/>
+                <Table rooms = {rooms} room_status = {room_status} basicDetails = {basicInfo}/>
                 <Reviews reviews = {reviews}/>
                 <Recommendation recommendations = {recommendations}/>
             </div>
