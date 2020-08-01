@@ -68,11 +68,14 @@ export default function Description({basicDetails, blockedDates}){
                             {basicDetails ? basicDetails['description'] : "Loading..."}
                         </p>
                     </div>
-                    <div className="col-md-5 col-12  d-flex flex-column justify-content-center rounded shadow-sm ">
-                        <div className="p-4 d-flex-column border border-success rounded">
-                            <div className="text-center">
+                    <div className="col-md-5 col-12  d-flex flex-column justify-content-center border rounded shadow-sm ">
+                        <div className="d-flex-column align-items-center text-center">
+                            <div className="p-1">
+                                Check - in
+                            </div>
+                            <div className="text-center p-1">
                                 <DatePicker
-                                    className={`${styles.datecomponent} mx-2`}
+                                    className={`${styles.datecomponent} ${styles.fromDate} mx-2`}
                                     selected={startDate}
                                     onChange={date => handleStartDate(date)}
                                     selectsStart
@@ -81,8 +84,13 @@ export default function Description({basicDetails, blockedDates}){
                                     endDate={endDate}
                                     placeholderText="From"
                                 />
+                            </div>
+                            <div className="p-1">
+                                Check - out
+                            </div>
+                            <div className="p-1">
                                 <DatePicker
-                                    className={`${styles.datecomponent} mx-2`}
+                                    className={`${styles.datecomponent} ${styles.fromDate} mx-2`}
                                     selected={endDate}
                                     onChange={date => setEndDate(date)}
                                     selectsEnd
@@ -95,7 +103,7 @@ export default function Description({basicDetails, blockedDates}){
                                 />
                             </div>
                             <div className="text-center mt-2">
-                                <button className="btn btn-sm btn-success px-5"
+                                <button className={`${styles.checkbutton} btn btn-sm px-5`}
                                 onClick={(e)=>handleSubmit(e)}>
                                     Check Availability
                                 </button>

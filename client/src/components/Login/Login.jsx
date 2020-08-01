@@ -4,6 +4,7 @@ import styles from './Login.module.css'
 import {Link, useHistory} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import GoogleLogin from 'react-google-login'
+// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import FacebookLogin from 'react-facebook-login';
 
 import {
@@ -108,14 +109,15 @@ export default function Login(){
                 </div>
                 <div className="col-sm-6">
                   <h1>or log in with</h1>
-                  <div className="facebook mb-3">
+                  <div className="facebook mt-4 mb-4">
                     <FacebookLogin
                       appId="203954837724135"
                       autoLoad={false}
                       fields="name,email,picture"
-                      callback={responseFacebook} />
+                      callback={responseFacebook}
+                    />
                   </div>
-                  <div className="amazon mb-3">
+                  <div className="amazon mt-3  mb-3">
                     <GoogleLogin
                       clientId="471977914473-cn7u1rs5sopnfdh3a3u6bt17ecpp50t3.apps.googleusercontent.com"
                       buttonText='Sign in with Google'

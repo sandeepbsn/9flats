@@ -133,7 +133,7 @@ function PropertyCheckout() {
     console.log(otp)
     return (
         <div>
-            <div className="container mt-5" >
+            <div className={`${styles.description} container mt-3`}>
                 <div className="row mb-5" style={{ marginTop: 80 }} >
                     <div className=" order-md-1 order-2 col-12 col-md-6 p-3">
                         <h3 style={{ color: "rgb(22, 139, 160)" }}><b>Enter Your Details</b></h3>
@@ -189,7 +189,7 @@ function PropertyCheckout() {
                             </Form.Row>
                             <div className="text-center">
                                 {/* <button className="btn btn-success btn-block" type="submit">Confirm Booking</button> */}
-                                <Button variant="primary" onClick={handleShow}>
+                                <Button className={`${styles.checkbutton} px-5`} onClick={handleShow}>
                                 Confirm Booking
                                 </Button>
 

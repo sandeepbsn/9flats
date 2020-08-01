@@ -32,3 +32,27 @@ tr, td{
     height: 60px !important;
     width: 100% !important;
 }
+
+
+.datecomponent{
+    height: 40px;
+    /* width:100px; */
+    border-radius: 0.25rem !important;
+    border: 1px solid #dee2e6 !important;
+
+}
+
+.fromDate {
+    width: 135px;
+    opacity: 1;
+    background-image: url("https://img.icons8.com/color/30/000000/calendar-1.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-left: 10px;
+}
+
+.checkbutton{
+    background-color: rgb(4, 177, 177) !important;
+    color: white !important;
+    border: None !important;
+}
