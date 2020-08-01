@@ -5,9 +5,7 @@ from google.auth.transport import requests
 from flask import request
 
 
-config_name = 'development'
-
-app = create_app(config_name)
+app = create_app('development')
 CORS(app)
 
 @app.route('/', methods = ['POST', 'GET'])
