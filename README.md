@@ -26,21 +26,21 @@ An exact replica of [9flats](https://www.9flats.com/) hotel booking website.
     7. Google places auto complete
 
 ### Search, filter, locate and book
-<img src="listing" width="800" height="500" alt="listing"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatslisting.png" width="800" height="500" alt="listing"/>
 <br/>
-<img src="entity" width="800" height="500" alt="entity"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatsentity.png" width="800" height="500" alt="entity"/>
 
 ### OTP verification through twilio
-<img src="OTP" width="800" height="500" alt="OTP"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatsotp.png" width="800" height="500" alt="OTP"/>
 
 ### Payment integration with razorpay
-<img src="razorpay" width="800" height="500" alt="razorpay"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatsrazorpay.png" width="800" height="500" alt="razorpay"/>
 
 ### Sending emails using Amazon SES
-<img src="emails" width="800" height="500" alt="emails"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatsemail.png" width="800" height="500" alt="emails"/>
 
 ### Google places auto complete
-<img src="landing" width="800" height="500" alt="landing"/>
+<img src="https://github.com/sandeepbsn/9flats/blob/master/client/public/9flatslanding.png" width="800" height="500" alt="landing"/>
 
 
 
