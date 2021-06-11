@@ -12,16 +12,20 @@ from datetime import timedelta
 def getAllListings(params):
     page = params.get('page', 1)
     per_page = params.get('per_page',10)
-    search_query = params.get('search_query', 'India')
+    search_query = params.get('search_query', 'India').encode()
     category = params.get('category')
     amenities = params.get('amenities')
     price = params.get('price')
     start_date = params.get('start_date', datetime.date.today().strftime("%Y-%m-%d"))
     end_date = params.get('end_date', (datetime.date.today() + timedelta(1)).strftime("%Y-%m-%d"))
     
-    
+    print("******", search_query)
     # getting the results bases on basic search query
-    search_query = tuple(search_query.split(",")) if "," in search_query else (search_query, 'None')
+    if "," in search_query.decode():
+        search_query = search_query.decode()
+        search_query = tuple(search_query.split(","))
+    else:
+        search_query = None
 
     raw_data = db.session.execute('''SELECT pp.id, pp.name, pp.city, pp.state, pp.country,pp.type,pp.price, pp.rooms,pp.lat,pp.lng, aa.wifi,aa.ac,aa.kitchen,aa.breakfast,aa.pool,aa.heater,aa.frontdesk, pp.images FROM properties as pp JOIN amenities as aa ON pp.id = aa.property_id WHERE pp.name IN %s OR pp.city IN %s OR pp.state IN %s OR pp.country IN %s;'''%(search_query, search_query, search_query, search_query))
 

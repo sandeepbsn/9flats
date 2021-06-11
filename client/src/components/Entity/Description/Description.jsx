@@ -82,6 +82,7 @@ export default function Description({basicDetails, blockedDates}){
                                     startDate={startDate}
                                     excludeDates={blockedDates}
                                     endDate={endDate}
+                                    minDate={new Date()}
                                     placeholderText="From"
                                 />
                             </div>
@@ -97,7 +98,7 @@ export default function Description({basicDetails, blockedDates}){
                                     startDate={startDate}
                                     excludeDates={blockedDates}
                                     endDate={endDate}
-                                    minDate={startDate}
+                                    minDate={new Date()}
                                     placeholderText="To"
                                     maxDate={addDays(60)}
                                 />

@@ -3,8 +3,8 @@ from google.auth.transport import requests
 from flask import request
 from ..models.UsersModel import Users
 from ..models.AuthModel import Auth
-from .. import db
-from instance.config import SECRET_KEY 
+from .. import db 
+from instance.config import SECRET_KEY
 import jwt
 
 # getting the user details through google login

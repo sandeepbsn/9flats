@@ -98,7 +98,7 @@ export default function Login(){
                       <Form.Control type="password" name="password" onChange={(e)=>handleChange(e)} />
                     </Form.Group>
                     <Form.Group controlId="formBasicCheckbox">
-                      <Form.Check type="checkbox" label="Remember me" checked />
+                      <Form.Check type="checkbox" label="Remember me" />
                     </Form.Group>
                     <Button variant="warning" type="submit">
                       Log in</Button>

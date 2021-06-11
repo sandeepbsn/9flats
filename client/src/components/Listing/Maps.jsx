@@ -41,9 +41,10 @@ class Maps extends React.Component {
             return bounds
         }
     }
-    
+
   render() {
     const {coordinates} = this.props
+    console.log(process.env.REACT_APP_MAPS)
     console.log(this.state)
     return (
       <Map google={this.props.google}
@@ -87,6 +88,6 @@ class Maps extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  
+    apiKey: (process.env.REACT_APP_MAPS)
 })(Maps)
 

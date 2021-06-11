@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request
-from ..services.GoogleLoginService import *
+from ..services.GoogleLoginService import getUserDetails, googleUserDetails
 from ..services.FacebookLoginService import *
 from ..services.LoginService import *
 import json

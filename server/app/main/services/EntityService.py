@@ -19,6 +19,7 @@ from twilio.rest import Client
 import pyotp
 import boto3
 from botocore.exceptions import ClientError
+import os
 
 
 
@@ -283,7 +284,7 @@ def sendUserOtp(data):
     # Your Account SID from twilio.com/console
     account_sid = "AC1cf44ddfc739394e43fc9cb3b2c93224"
     # Your Auth Token from twilio.com/console
-    auth_token  = "e9f4c39fbdf9d20eaa727949e4b0d378"
+    auth_token  = os.getenv("TWILIO_TOKEN")
 
     client = Client(account_sid, auth_token)
     totp = pyotp.TOTP('base32secret3232')
@@ -336,64 +337,70 @@ def sendMailUser(booking_info):
     SENDER = "contact@sandeepbabu.tech"
     RECIPIENT = "sandeep.bsn@gmail.com"
     AWS_REGION = "ap-south-1"
-    SUBJECT = "EMAIL TESTING"
+    SUBJECT = "Booking Confirmation from 9flats"
     BODY_TEXT = ("Hello email testing friday")
     CHARSET = "UTF-8"
     client = boto3.client('ses',region_name=AWS_REGION)
     BODY_HTML = """<html>
-            <head></head>
-            <body>
-            <div style="display:flex;">
-                <div>
-                    <h1 style="color:green;">Booking confirmation</h1>
-                </div>
+    <head>
+        
+    </head>
+    <body>
+        <div style="display:flex;">
+            <div style="margin:auto; text-align:center">
+                <h1 style="color:green;">Booking confirmation from</h1>
             </div>
-            <div>
-                <table style="width:200px;">
-                    <tr style="height:20px;">
-                        <td style="width:70px;">
-                            Name
-                        </td>
-                        <td style="width:100px;">
-                            %s
-                        </td>
-                    </tr>
-                    <tr style="height:"20px;">
-                        <td style="width:70px;">
-                            Email
-                        </td>
-                        <td style="width:100px;">
-                            %s
-                        </td>
-                    </tr>
-                    <tr style="height:"20px;">
-                        <td style="width:70px;">
-                            Order Id
-                        </td>
-                        <td style="width:100px;">
-                            %s
-                        </td>
-                    </tr>
-                    <tr style="height:"20px;">
-                        <td style="width:70px;">
-                            Payment Id
-                        </td>
-                        <td style="width:100px;">
-                            %s
-                        </td>
-                    </tr>
-                    <tr style="height:"20px;">
-                        <td style="width:70px;">
-                            Check -in & check out
-                        </td>
-                        <td style="width:100px;">
-                            %s-%s
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            </html>
-                        """%(name,data['email'], data['razorpay_order_id'], data['razorpay_payment_id'], data['start_date'], data['end_date'] )
+        </div>
+        <div style="margin:auto;">
+            <table style="width:450px;font-size:24px; margin: auto;">
+                <tr style="height:70px;">
+                    <td style="width:100px;">
+                        Name
+                    </td>
+                    <td style="width:100px;">
+                        %s
+                    </td>
+                </tr>
+                <tr style="height:70px;">
+                    <td style="width:100px;">
+                        Email
+                    </td>
+                    <td style="width:100px;">
+                        %s
+                    </td>
+                </tr>
+                <tr style="height:70px;">
+                    <td style="width:100px;">
+                        Order ID
+                    </td>
+                    <td style="width:100px;">
+                        %s
+                    </td>
+                </tr>
+                <tr style="height:70px;">
+                    <td style="width:100px;">
+                        Payment Id
+                    </td>
+                    <td style="width:100px;">
+                        %s
+                    </td>
+                </tr>
+                <tr style="height:70px;">
+                    <td style="width:100px;">
+                        Check -in & check out
+                    </td>
+                    <td style="width:100px;">
+                        %s - %s
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center;">
+            <h2>Thank you for booking with us! Do visit us more to see accommodations that suits your need</h2>
+        </div>
+    </body>
+</html>
+        """%(name,data['email'], data['razorpay_order_id'], data['razorpay_payment_id'], data['start_date'], data['end_date'] )
     try:
         #Provide the contents of the email.
         response = client.send_email(
